@@ -1,6 +1,6 @@
-namespace HeidelbergCement.CaseStudies.Concurrency.Dto;
+namespace HeidelbergCement.CaseStudies.Concurrency.Dto.Response;
 
-public class ScheduleItemDto
+public class ScheduleItemResponseDto
 {
     public int ScheduleItemId { get; set; }
     public DateTime Start { get; set; }

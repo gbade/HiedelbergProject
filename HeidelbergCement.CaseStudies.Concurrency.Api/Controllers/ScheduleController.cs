@@ -1,5 +1,6 @@
 using System.Net.Mime;
-using HeidelbergCement.CaseStudies.Concurrency.Dto;
+using HeidelbergCement.CaseStudies.Concurrency.Dto.Input;
+using HeidelbergCement.CaseStudies.Concurrency.Dto.Response;
 using HeidelbergCement.CaseStudies.Concurrency.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,20 @@ public class ScheduleController: ControllerBase
     }
 
     [HttpGet("draft")]
-    [ProducesResponseType(typeof(ScheduleDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<ScheduleDto>> GetDraft(int plantCode)
+    public async Task<ActionResult<ScheduleResponseDto>> GetDraftSchedule(int plantCode)
     {
         var schedule = await _scheduleService.GetLatestDraftScheduleForPlant(plantCode);
         return Ok(schedule);
+    }
+
+    [HttpPost("items")]
+    [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<ScheduleItemResponseDto>> PostItem(int scheduleId, ScheduleInputItemDto scheduleInputItem)
+    {
+        var scheduleItem = await _scheduleService.AddItemToSchedule(scheduleId, scheduleInputItem);
+        return Ok(scheduleItem);
     }
 }

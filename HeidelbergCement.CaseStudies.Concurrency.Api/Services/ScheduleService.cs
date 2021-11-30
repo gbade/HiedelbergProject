@@ -1,9 +1,9 @@
 using HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Repositories;
-using HeidelbergCement.CaseStudies.Concurrency.Dto;
+using HeidelbergCement.CaseStudies.Concurrency.Dto.Input;
+using HeidelbergCement.CaseStudies.Concurrency.Dto.Response;
 using HeidelbergCement.CaseStudies.Concurrency.Extensions;
 using HeidelbergCement.CaseStudies.Concurrency.Infrastructure.DbContexts.Schedule;
 using HeidelbergCement.CaseStudies.Concurrency.Services.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace HeidelbergCement.CaseStudies.Concurrency.Services;
 
@@ -15,7 +15,7 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         _scheduleRepository = scheduleRepository;
     }
     
-    public async Task<ScheduleDto> GetLatestDraftScheduleForPlant(int plantCode)
+    public async Task<ScheduleResponseDto> GetLatestDraftScheduleForPlant(int plantCode)
     {
         var currentDraftSchedule = await _scheduleRepository.GetCurrentDraftSchedule(plantCode);
         if (currentDraftSchedule == null)
@@ -24,5 +24,16 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         }
 
         return currentDraftSchedule.MapToScheduleDto();
+    }
+
+    public async Task<ScheduleResponseDto> AddItemToSchedule(int scheduleId, ScheduleInputItemDto scheduleItem)
+    {
+        var scheduleWithId = await _scheduleRepository.GetScheduleById(scheduleId);
+        scheduleWithId.AddItem(
+            start: scheduleItem.Start,
+            end: scheduleItem.End,
+            assetId: scheduleItem.AssetId,
+            updatedOn: DateTime.UtcNow);
+        return scheduleWithId.MapToScheduleDto();
     }
 }

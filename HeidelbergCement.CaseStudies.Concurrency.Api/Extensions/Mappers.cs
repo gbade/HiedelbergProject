@@ -1,13 +1,14 @@
 using HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Models;
 using HeidelbergCement.CaseStudies.Concurrency.Dto;
+using HeidelbergCement.CaseStudies.Concurrency.Dto.Response;
 
 namespace HeidelbergCement.CaseStudies.Concurrency.Extensions;
 
 public static class Mappers
 {
-    public static ScheduleItemDto MapToScheduleItemDto(this ScheduleItem scheduleItem)
+    public static ScheduleItemResponseDto MapToScheduleItemDto(this ScheduleItem scheduleItem)
     {
-        return new ScheduleItemDto
+        return new ScheduleItemResponseDto
         {
             End = scheduleItem.End,
             Start = scheduleItem.Start,
@@ -18,9 +19,9 @@ public static class Mappers
             ScheduleItemId = scheduleItem.ScheduleItemId
         };
     }
-    public static ScheduleDto MapToScheduleDto(this Schedule schedule)
+    public static ScheduleResponseDto MapToScheduleDto(this Schedule schedule)
     {
-        return new ScheduleDto
+        return new ScheduleResponseDto
         {
             Status = schedule.Status,
             PlantCode = schedule.PlantCode,

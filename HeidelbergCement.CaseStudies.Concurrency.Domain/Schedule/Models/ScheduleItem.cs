@@ -7,11 +7,10 @@ public class ScheduleItem
     public ScheduleItem()
     {
     }
-    public ScheduleItem(int id, DateTime start, DateTime end, int assetId, DateTime updatedOn)
+    public ScheduleItem(DateTime start, DateTime end, int assetId, DateTime updatedOn)
     {
         DateValidator.ValidateRange(start, end);
         
-        ScheduleItemId = id;
         Start = start;
         End = end;
         AssetId = assetId;

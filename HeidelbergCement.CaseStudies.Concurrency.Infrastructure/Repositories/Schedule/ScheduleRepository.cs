@@ -11,13 +11,19 @@ public class ScheduleRepository: GenericRepository<Domain.Schedule.Models.Schedu
     {
     }
 
-    public Task<Domain.Schedule.Models.Schedule?> GetCurrentDraftSchedule(int plantCode)
+    public Task<Domain.Schedule.Models.Schedule> GetCurrentDraftSchedule(int plantCode)
     {
-        return GetAllSchedulesIncludingItems().SingleOrDefaultAsync(it => it.Status == Status.Draft);
+        return GetAllSchedulesIncludingItems().SingleAsync(it => it.Status == Status.Draft);
+    }
+
+    public Task<Domain.Schedule.Models.Schedule> GetScheduleById(int scheduleId)
+    {
+        return FindByInclude(it => it.ScheduleId == scheduleId, it => it.ScheduleItems).SingleAsync();
     }
 
     private IQueryable<Domain.Schedule.Models.Schedule> GetAllSchedulesIncludingItems()
     {
         return GetAllIncluding(it => it.ScheduleItems);
     }
+    
 }
