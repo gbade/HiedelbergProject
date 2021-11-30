@@ -14,7 +14,7 @@ The overall structure of the code is influenced by Domain Driven Design (DDD).  
 
 
 # Steps to Run
-Install .NET 6
-Clone the repo.
-Run the postgres service in `docker-compose.yml`
-Run the tests (`dotnet test or the like`)
+1. Insta1. ll .NET 6
+1. Clone the repo.
+1. Run the postgres service in `docker-compose.yml`
+1. Run the tests (`dotnet test or the like`)
