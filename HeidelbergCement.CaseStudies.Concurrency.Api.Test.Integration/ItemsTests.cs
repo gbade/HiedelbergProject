@@ -45,7 +45,7 @@ public class ItemsTests: IntegrationTestBase
         // Verify
         scheduleBeforeAddition.ScheduleItems.Count.Should().Be(0);
         var failures = itemAddResponses.ToList().Where(it => it.IsSuccessStatusCode == false);
-        var successes = itemAddResponses.ToList().Where(it => it.IsSuccessStatusCode == false);
+        var successes = itemAddResponses.ToList().Where(it => it.IsSuccessStatusCode == true);
         failures.Count().Should().Be(1);
         successes.Count().Should().Be(1);
         scheduleAfterAddition.ScheduleItems.Count.Should().Be(1);
