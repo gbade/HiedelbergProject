@@ -16,7 +16,7 @@ If you have any questions, do not hesitate to reach out!
 
 # The Case Study
 
-# Business Case
+## Business Case
 We have machines that run at cement plants that produce certain asset types. These machines can be scheduled to produce an asset.
 
 Here is an example schedule in the form of a gantt chart (Imagine every `:` is a 15 minute interval)
@@ -35,7 +35,7 @@ Schedule Items
 * When items are added they should never conflict with another schedule item.
 
 
-# The Problem
+## The Problem
 This project is a microservice that manages the schedules for the different plants.
 
 It currently only has two api endpoints: 
@@ -45,7 +45,7 @@ It currently only has two api endpoints:
 Currently if you add an item then the service validates that the item does not conflict. Unfortunately if you make two requests to add an item in quick succession we have a concurrency issue where both items are saved to the database, immediately making the entire schedule invalid.
 
 
-# Deliverables
+## Deliverables
 Your task is to adjust the project so that this race condition no longer is possible and the business rules around item creation are met.  You should feel free to adjust any aspect of the project except for the test itself.
 
 Also include in your email your analysis of the problem, its causes, possible solutions, and why you selected your currently implemented solution.
