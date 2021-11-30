@@ -28,6 +28,5 @@ public static class Mappers
             UpdatedOn = schedule.UpdatedOn,
             ScheduleItems = schedule.ScheduleItems.Select(MapToScheduleItemDto).ToList()
         };
-
     }
 }
