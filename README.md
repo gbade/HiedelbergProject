@@ -19,11 +19,13 @@ If you have any questions, do not hesitate to reach out!
 ## Business Case
 We have machines that run at cement plants that produce certain asset types. These machines can be scheduled to produce an asset.
 
-Here is an example schedule in the form of a gantt chart (Imagine every `:` is a 15 minute interval)
+A **schedule** is defined as a collection of scheduled machine run times for a plant.
+
+Here is an example schedule in the form of a gantt chart where the machine run times are organized by the asset they create. Imagine every `:` is a 15 minute interval
 ```
-ZM1 -- [::CEM-I:::]  [::::::::::::::CEM-I:::::::::::::::][:CEM-I:]
-ZM2 --       [::::::CEM-52,5R:::::::::::]   [:::::::::::]
-RM1 --                      [::::::CEM-II:::::::::::]         [::]
+Mill 1 -- [::CEM-I:::]  [::::::::::::::CEM-I:::::::::::::::][:CEM-I:]
+Mill 2 --       [::::::CEM-52,5R:::::::::::]   [:::::::::::]
+Mill 5 --                      [::::::CEM-II:::::::::::]         [::]
 ```
 
 Schedule Status
