@@ -33,28 +33,12 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Migrations
                     b.Property<int>("PlantCode")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ScheduleId");
 
-                    b.HasIndex("Status", "PlantCode")
-                        .IsUnique()
-                        .HasFilter("\"Status\" = 0");
-
-                    b.ToTable("ScheduleItems");
-
-                    b.HasData(
-                        new
-                        {
-                            ScheduleId = 88,
-                            PlantCode = 1234,
-                            Status = 0,
-                            UpdatedOn = new DateTime(2021, 1, 1, 1, 1, 1, 0, DateTimeKind.Utc)
-                        });
+                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Models.ScheduleItem", b =>
@@ -65,14 +49,12 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ScheduleItemId"));
 
-                    b.Property<int>("AssetId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CementType")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("End")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<int>("ScheduleId")
                         .HasColumnType("integer");
@@ -87,7 +69,7 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Migrations
 
                     b.HasIndex("ScheduleId");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("ScheduleItems");
                 });
 
             modelBuilder.Entity("HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Models.ScheduleItem", b =>

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HeidelbergCement.CaseStudies.Concurrency.Api.Test.Infrastructure;
-using HeidelbergCement.CaseStudies.Concurrency.Dto;
 using HeidelbergCement.CaseStudies.Concurrency.Dto.Input;
 using HeidelbergCement.CaseStudies.Concurrency.Dto.Response;
 using Xunit;
@@ -17,25 +16,31 @@ public class ItemsTests: IntegrationTestBase
     {
     }
     
-    [Fact]
-    public async Task GivenScheduleWithNoItems_WhenTwoSimultaneousIdenticalAddItemRequests_ThenOneItemIsAddedAndTheOtherRejected()
+    [Theory]
+    [InlineData("1234")]
+    public async Task GivenScheduleWithNoItems_WhenTwoSimultaneousIdenticalAddItemRequests_ThenOneItemIsAddedAndTheOtherRejected(string plantCode)
     {
         //Setup
         var itemToAdd = new ScheduleInputItemDto
         {
             Start = DateTime.UtcNow,
             End = DateTime.UtcNow.AddHours(1),
-            AssetId = 1
+            CementType = "CEM-I"
         };
 
+        var addScheduleRequest = NewRequest
+            .AddRoute("schedule")
+            .AddQueryParams("plantCode", plantCode);
         var draftScheduleRequest = NewRequest
-            .AddRoute("schedule/draft")
-            .AddQueryParams("plantCode", "1234");
+            .AddRoute("schedule")
+            .AddQueryParams("plantCode", plantCode);
         var addItemForScheduleRequest = (string scheduleId) => NewRequest
             .AddRoute("schedule/items")
             .AddQueryParams("scheduleId", scheduleId);
         
         // Exercise
+        await addScheduleRequest.Post(new ScheduleInputItemDto[]{});
+        
         // First let's get the schedule before adding any items. This schedule is currently empty..
         var scheduleBeforeAddition = await draftScheduleRequest.Get<ScheduleResponseDto>();
 
@@ -51,6 +56,7 @@ public class ItemsTests: IntegrationTestBase
 
         // Verify
         scheduleBeforeAddition.ScheduleItems.Count.Should().Be(0);
+        scheduleAfterAddition.ScheduleItems.Count.Should().Be(1);
         
         var failures = itemAddResponses.ToList().Where(it => it.IsSuccessStatusCode == false);
         var successes = itemAddResponses.ToList().Where(it => it.IsSuccessStatusCode == true);
@@ -58,6 +64,5 @@ public class ItemsTests: IntegrationTestBase
         failures.Count().Should().Be(1);
         successes.Count().Should().Be(1);
         
-        scheduleAfterAddition.ScheduleItems.Count.Should().Be(1);
     }
 }

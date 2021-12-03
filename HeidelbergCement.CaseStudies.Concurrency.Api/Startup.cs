@@ -18,7 +18,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
+        services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
         services.AddSingleton(_configuration);
         services.AddDatabase(_configuration);
         services.AddCors();

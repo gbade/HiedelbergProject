@@ -43,7 +43,7 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
             return results;
         }
 
-        public Task<TEntity> FindByKey(int id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public Task<TEntity?> FindByKey(int id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var aggregate = includeProperties.Aggregate
                 (_dbSet.AsQueryable(), (current, includeProperty) => current.Include(includeProperty));
@@ -52,7 +52,7 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
             return aggregate.SingleOrDefaultAsync(lambda);
         }
 
-        public TEntity Find(Expression<Func<TEntity, bool>> predicate)
+        public TEntity? Find(Expression<Func<TEntity?, bool>> predicate)
         {
             return _dbSet.AsNoTracking()
                 .SingleOrDefault(predicate);
@@ -60,18 +60,25 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
 
         public Task<int> Insert(TEntity entity) {
             _dbSet.Add(entity);
-            return _context.SaveChangesAsync();
+            return DelaySave();
         }
 
         public Task<int> Update(TEntity entity) {
             _dbSet.Attach(entity);
             _context.SetModified(entity);
-            return _context.SaveChangesAsync();
+            return DelaySave();
+        }
+
+        //DO NOT  modify this. This delay is put in place to ensure that the concurrency problem is reproducible.
+        private async Task<int> DelaySave()
+        {
+            await Task.Delay(1000);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<int> Delete(int id) {
             var entity = await FindByKey(id);
             _dbSet.Remove(entity);
-            return await _context.SaveChangesAsync();
+            return await DelaySave();
         }
     }

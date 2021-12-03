@@ -7,20 +7,19 @@ public class ScheduleItem
     public ScheduleItem()
     {
     }
-    public ScheduleItem(DateTime start, DateTime end, int assetId, DateTime updatedOn)
+    public ScheduleItem(DateTime start, DateTime end, string cementType, DateTime updatedOn)
     {
         DateValidator.ValidateRange(start, end);
         
         Start = start;
         End = end;
-        AssetId = assetId;
+        CementType = cementType;
         UpdatedOn = updatedOn;
     }
     public int ScheduleItemId { get; set; }
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
-    public int AssetId { get; set; }
-    public bool IsDeleted { get; set; }
+    public string CementType { get; set; }
     public DateTime UpdatedOn { get; set; }
     public Schedule Schedule { get; set; }
     public int ScheduleId { get; set; }

@@ -1,4 +1,3 @@
-using HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Enums;
 using HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Repositories;
 using HeidelbergCement.CaseStudies.Concurrency.Infrastructure.DbContexts.Schedule;
 using Microsoft.EntityFrameworkCore;
@@ -11,19 +10,15 @@ public class ScheduleRepository: GenericRepository<Domain.Schedule.Models.Schedu
     {
     }
 
-    public Task<Domain.Schedule.Models.Schedule> GetCurrentDraftSchedule(int plantCode)
+    public Task<Domain.Schedule.Models.Schedule> GetLastUpdatedScheduleForPlant(int plantCode)
     {
-        return GetAllSchedulesIncludingItems().SingleAsync(it => it.Status == Status.Draft);
+        return FindByInclude(it => it.PlantCode == plantCode, it => it.ScheduleItems)
+            .OrderByDescending(it => it.UpdatedOn)
+            .SingleAsync();
     }
 
     public Task<Domain.Schedule.Models.Schedule> GetScheduleById(int scheduleId)
     {
         return FindByInclude(it => it.ScheduleId == scheduleId, it => it.ScheduleItems).SingleAsync();
     }
-
-    private IQueryable<Domain.Schedule.Models.Schedule> GetAllSchedulesIncludingItems()
-    {
-        return GetAllIncluding(it => it.ScheduleItems);
-    }
-    
 }

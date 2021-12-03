@@ -15,8 +15,8 @@ public static class Program
             var services = scope.ServiceProvider;
             var db = services.GetRequiredService<ScheduleDbContext>();
 
+            db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
-            db.Database.Migrate();
         }
 
         host.Run();

@@ -1,5 +1,4 @@
 using HeidelbergCement.CaseStudies.Concurrency.Domain.Schedule.Models;
-using HeidelbergCement.CaseStudies.Concurrency.Dto;
 using HeidelbergCement.CaseStudies.Concurrency.Dto.Response;
 
 namespace HeidelbergCement.CaseStudies.Concurrency.Extensions;
@@ -12,8 +11,7 @@ public static class Mappers
         {
             End = scheduleItem.End,
             Start = scheduleItem.Start,
-            AssetId = scheduleItem.AssetId,
-            IsDeleted = scheduleItem.IsDeleted,
+            CementType = scheduleItem.CementType,
             ScheduleId = scheduleItem.ScheduleId,
             UpdatedOn = scheduleItem.UpdatedOn,
             ScheduleItemId = scheduleItem.ScheduleItemId
@@ -23,7 +21,6 @@ public static class Mappers
     {
         return new ScheduleResponseDto
         {
-            Status = schedule.Status,
             PlantCode = schedule.PlantCode,
             ScheduleId = schedule.ScheduleId,
             UpdatedOn = schedule.UpdatedOn,

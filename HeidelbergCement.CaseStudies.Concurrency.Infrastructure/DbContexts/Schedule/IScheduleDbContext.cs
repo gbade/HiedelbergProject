@@ -5,7 +5,7 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.DbContexts.Sch
 
 public interface IScheduleDbContext: IDbContext
 {
-    DbSet<Domain.Schedule.Models.Schedule> ScheduleItems { get; set; }
+    DbSet<Domain.Schedule.Models.Schedule> Schedules { get; set; }
         
-    DbSet<ScheduleItem> Schedules { get; set; }
+    DbSet<ScheduleItem> ScheduleItems { get; set; }
 }

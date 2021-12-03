@@ -17,29 +17,52 @@ If you have any questions, do not hesitate to reach out!
 # The Case Study
 
 ## Business Case
-We have machines that run at cement plants that produce certain asset types. These machines can be scheduled to produce an asset.
+We have machines that run at cement plants that produce different kinds of cement. These machines are scheduled to run at different times based on a variety of factors, including how much cement is required and what the energy costs for the time are.
+Schedule items can never overlap. If there are overlapping schedule items then the entire schedule is invalid.
 
 Here is an example schedule in the form of a gantt chart (Imagine every `:` is a 15 minute interval)
 ```
-ZM1 -- [::CEM-I:::]  [::::::::::::::CEM-I:::::::::::::::][:CEM-I:]
-ZM2 --       [::::::CEM-52,5R:::::::::::]   [:::::::::::]
-RM1 --                      [::::::CEM-II:::::::::::]         [::]
+[::CEM-I:::]  [::::::::::::::CEM-II::::::::::::::::][:CEM-III:]
 ```
 
-Schedule Status
-* Schedules can have a `Saved`, `Submitted`, or `Draft` status. At any given time there can only be one `Draft` schedule for a plant.
-* Schedules in `Draft` or `Saved` status can add, modify or delete items.
-* Once a schedule is `Submitted` it cannot be modified.
-Schedule Items
-* Schedules can have schedule items that correspond to machine production times for a specific asset. Schedule items for the same asset cannot overlap for the same time period 
-* When items are added they should never conflict with another schedule item.
-
-
+In json format this would look like the following:
+```json
+{
+  "scheduleId": 12132891,
+  "plantId": 1213,
+  "updatedOn": "2021-12-01T12:44:17Z",
+  "scheduleItems": [
+    {
+      "scheduleItemId": 1,
+      "cementType": "CEM-I",
+      "start": "2021-11-23T00:00:00Z",
+      "end": "2021-11-23T02:15:00Z",
+      "updatedOn": "2021-12-01T11:43:17Z"
+    },
+    {
+      "scheduleItemId": 1,
+      "cementType": "CEM-II",
+      "start": "2021-11-23T03:00:00Z",
+      "end": "2021-11-23T10:30:00Z",
+      "updatedOn": "2021-12-01T11:43:17Z"
+    },
+    {
+      "scheduleItemId": 1,
+      "cementType": "CEM-III",
+      "start": "2021-11-23T10:30:00Z",
+      "end": "2021-11-23T11:00:00Z",
+      "updatedOn": "2021-12-01T11:43:17Z"
+    }
+  ]
+}
+```
+f
 ## The Problem
-This project is a microservice that manages the schedules for the different plants.
+This project is a .NET 6 microservice that manages the schedules for the different plants.
 
-It currently only has two api endpoints: 
-* GET   `schedule/draft` allows getting the latest draft schedule for a plant
+It has the following end points
+* GET   `schedule` allows getting the latest created schedule for a plant
+* POST  `schedule` allows adding a schedule for a plant
 * POST  `schedule/items` allows adding an item to a schedule.
 
 Currently if you add an item then the service validates that the item does not conflict. Unfortunately if you make two requests to add an item in quick succession we have a concurrency issue where both items are saved to the database, immediately making the entire schedule invalid.
@@ -52,7 +75,6 @@ Also include in your email your analysis of the problem, its causes, possible so
 
 
 # Project Setup Basics
-
 Your purpose is to get all of the tests working.
 
 You will find the following projects in the solution
@@ -66,5 +88,5 @@ You will find the following projects in the solution
 # Getting Started
 1. Install .NET 6
 1. Clone the repo.
-1. Run the postgres service in `docker-compose.yml`
-1. Run the tests (`dotnet test or the like`)
+1. Run the postgres service in docker compose `docker-compose up`
+1. Run the tests (`dotnet test`)

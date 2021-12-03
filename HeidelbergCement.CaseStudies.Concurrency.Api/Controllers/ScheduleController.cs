@@ -17,19 +17,29 @@ public class ScheduleController: ControllerBase
         _scheduleService = scheduleService;
     }
 
-    [HttpGet("draft")]
+    [HttpGet]
     [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<ScheduleResponseDto>> GetDraftSchedule(int plantCode)
     {
-        var schedule = await _scheduleService.GetLatestDraftScheduleForPlant(plantCode);
+        var schedule = await _scheduleService.GetScheduleForPlant(plantCode);
+        return Ok(schedule);
+    }
+    
+    [HttpPost]
+    [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<ScheduleResponseDto>> PostSchedule(int plantCode, ScheduleInputItemDto[]? scheduleInputItems = null)
+    {
+        var schedule = await _scheduleService.AddNewSchedule(plantCode, scheduleInputItems);
         return Ok(schedule);
     }
 
+    
     [HttpPost("items")]
     [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<ScheduleItemResponseDto>> PostItem(int scheduleId, ScheduleInputItemDto scheduleInputItem)
+    public async Task<ActionResult<ScheduleItemResponseDto>> PostScheduleItem(int scheduleId, ScheduleInputItemDto scheduleInputItem)
     {
         var scheduleItem = await _scheduleService.AddItemToSchedule(scheduleId, scheduleInputItem);
         return Ok(scheduleItem);
