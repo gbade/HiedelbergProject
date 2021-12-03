@@ -42,14 +42,14 @@ In json format this would look like the following:
       "updatedOn": "2021-12-01T11:43:17Z"
     },
     {
-      "scheduleItemId": 1,
+      "scheduleItemId": 2,
       "cementType": "CEM-II",
       "start": "2021-11-23T03:00:00Z",
       "end": "2021-11-23T10:30:00Z",
       "updatedOn": "2021-12-01T11:43:17Z"
     },
     {
-      "scheduleItemId": 1,
+      "scheduleItemId": 3,
       "cementType": "CEM-III",
       "start": "2021-11-23T10:30:00Z",
       "end": "2021-11-23T11:00:00Z",
