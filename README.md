@@ -18,9 +18,11 @@ If you have any questions, do not hesitate to reach out!
 
 ## Business Case
 We have machines that run at cement plants that produce different kinds of cement. These machines are scheduled to run at different times based on a variety of factors, including how much cement is required and what the energy costs for the time are.
+
+A **schedule** is defined as a collection of scheduled machine run times for a plant.
 Schedule items can never overlap. If there are overlapping schedule items then the entire schedule is invalid.
 
-Here is an example schedule in the form of a gantt chart (Imagine every `:` is a 15 minute interval)
+Here is an example schedule in the form of a gantt chart where the machine run times are organized by the asset they create. Imagine every `:` is a 15 minute interval
 ```
 [::CEM-I:::]  [::::::::::::::CEM-II::::::::::::::::][:CEM-III:]
 ```
