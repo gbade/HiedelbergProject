@@ -14,6 +14,7 @@ public static class Mappers
             CementType = scheduleItem.CementType,
             ScheduleId = scheduleItem.ScheduleId,
             UpdatedOn = scheduleItem.UpdatedOn,
+            NumberOfTimesUpdated = scheduleItem.NumberOfTimesUpdated,
             ScheduleItemId = scheduleItem.ScheduleItemId
         };
     }

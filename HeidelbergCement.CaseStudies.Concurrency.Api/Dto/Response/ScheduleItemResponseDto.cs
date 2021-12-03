@@ -7,5 +7,6 @@ public class ScheduleItemResponseDto
     public DateTime End { get; set; }
     public string CementType { get; set; }
     public DateTime UpdatedOn { get; set; }
+    public int NumberOfTimesUpdated { get; set; }
     public int ScheduleId { get; set; }
 }

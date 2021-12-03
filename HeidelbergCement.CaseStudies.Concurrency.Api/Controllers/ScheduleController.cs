@@ -29,7 +29,7 @@ public class ScheduleController: ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<ScheduleResponseDto>> PostSchedule(int plantCode, ScheduleInputItemDto[]? scheduleInputItems = null)
+    public async Task<ActionResult<ScheduleResponseDto>> PostSchedule(int plantCode, List<ScheduleInputItemDto> scheduleInputItems)
     {
         var schedule = await _scheduleService.AddNewSchedule(plantCode, scheduleInputItems);
         return Ok(schedule);
@@ -42,6 +42,15 @@ public class ScheduleController: ControllerBase
     public async Task<ActionResult<ScheduleItemResponseDto>> PostScheduleItem(int scheduleId, ScheduleInputItemDto scheduleInputItem)
     {
         var scheduleItem = await _scheduleService.AddItemToSchedule(scheduleId, scheduleInputItem);
+        return Ok(scheduleItem);
+    }
+    
+    [HttpPut("items/{itemId}")]
+    [ProducesResponseType(typeof(ScheduleResponseDto), StatusCodes.Status200OK)]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<ScheduleItemResponseDto>> PutScheduleItem(int scheduleId, int itemId, ScheduleInputItemDto scheduleInputItem)
+    {
+        var scheduleItem = await _scheduleService.ChangeScheduleItem(scheduleId, itemId, scheduleInputItem);
         return Ok(scheduleItem);
     }
 }

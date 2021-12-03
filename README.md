@@ -71,10 +71,13 @@ Currently if you add an item then the service validates that the item does not c
 
 
 ## Deliverables
-Your task is to adjust the project so that this race condition no longer is possible and the business rules around item creation are met.  You should feel free to adjust any aspect of the project except for the test itself.
+There are two integration tests that have been created in the `HeidelbergCement.CaseStudies.Concurrency.Api.Test.Integration/ItemsTests.cs` project/folder.  These tests demonstrate actual scenarios where the concurrency issues are present.
 
-Also include in your email your analysis of the problem, its causes, possible solutions, and why you selected your currently implemented solution.
+The project should be modified so that the tests successfully pass (i.e. no more concurrency issues) and the business requirements are still fulfilled.
 
+1. A zip file containing your modified project
+2. Your analysis of the problem, its causes, possible solutions, and why you selected your currently implemented solution.
+3. Your analysis of DDD and its merits and possible drawbacks in the current solution.
 
 # Project Setup Basics
 Your purpose is to get all of the tests working.

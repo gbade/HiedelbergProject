@@ -26,4 +26,12 @@ public class Schedule
         item.ValidateDoesNotOverlapWithItems(ScheduleItems.ToList());
         ScheduleItems.Add(item);
     }
+
+    public void UpdateItem(int itemId, DateTime start, DateTime end, string cementType, DateTime now)
+    {
+        ScheduleItems
+            .Single(it => it.ScheduleItemId == itemId)
+            .Update(start, end, cementType, now);
+        UpdatedOn = now;
+    }
 }

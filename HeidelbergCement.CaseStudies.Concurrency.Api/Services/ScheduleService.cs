@@ -39,7 +39,7 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         return scheduleWithId.MapToScheduleDto();
     }
 
-    public async Task<ScheduleResponseDto> AddNewSchedule(int plantCode, ScheduleInputItemDto[]? scheduleInputItems)
+    public async Task<ScheduleResponseDto> AddNewSchedule(int plantCode, List<ScheduleInputItemDto> scheduleInputItems)
     {
         var now = DateTime.UtcNow;
         var schedule = new Schedule(plantCode, now);
@@ -56,6 +56,15 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         }
 
         await _scheduleRepository.Insert(schedule);
+        return schedule.MapToScheduleDto();
+    }
+
+    public async Task<ScheduleResponseDto> ChangeScheduleItem(int scheduleId, int itemId, ScheduleInputItemDto scheduleInputItem)
+    {
+        var now = DateTime.UtcNow;
+        var schedule = await _scheduleRepository.GetScheduleById(scheduleId);
+        schedule.UpdateItem(itemId, scheduleInputItem.Start, scheduleInputItem.End, scheduleInputItem.CementType, now);
+        await _scheduleRepository.Update(schedule);
         return schedule.MapToScheduleDto();
     }
 }

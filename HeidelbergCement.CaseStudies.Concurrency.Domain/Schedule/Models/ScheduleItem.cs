@@ -21,6 +21,16 @@ public class ScheduleItem
     public DateTime End { get; set; }
     public string CementType { get; set; }
     public DateTime UpdatedOn { get; set; }
+    public int NumberOfTimesUpdated { get; set; }
     public Schedule Schedule { get; set; }
     public int ScheduleId { get; set; }
+
+    public void Update(DateTime start, DateTime end, string cementType, DateTime now)
+    {
+        Start = start;
+        End = end;
+        CementType = cementType;
+        UpdatedOn = now;
+        NumberOfTimesUpdated++;
+    }
 }
