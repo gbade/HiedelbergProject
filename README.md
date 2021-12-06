@@ -1,9 +1,9 @@
-# HeidelbergCement - Tech Lead Case Study
-Der applicant, thank you for your interest in technical leadership at HeidelbergCement!
+# HeidelbergCement - .NET/C# Case Study
+Der applicant, thank you for your interest in a position at HeidelbergCement!
 
 We want to make the best use of your and our time and give you a sense of the kind of work that is currently done in HProduce to support our cement plants' operational excellence.
 
-The following case study describes an interaction of a complex technical space and its corresponding business requirements. It is your task to understand the requirements, how they are not currently being met, and to create a fix to the issue.
+The following case study describes an interaction of a simple service and its corresponding business requirements. It is your task to understand the requirements, how they are not currently being met, and to create a fix to the issue.
 
 We would like to see your approach to the code base, your knowledge of microservices, concurrency issues, domain driven design.  Later on we would like you to present your solution to help us get a better sense of your skills and the way you solve problems.
 
@@ -58,7 +58,7 @@ In json format this would look like the following:
   ]
 }
 ```
-f
+
 ## The Problem
 This project is a .NET 6 microservice that manages the schedules for the different plants.
 
