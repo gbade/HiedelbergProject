@@ -10,11 +10,12 @@ public class ScheduleItem
     public ScheduleItem(DateTime start, DateTime end, string cementType, DateTime updatedOn)
     {
         DateValidator.ValidateRange(start, end);
-        
+
         Start = start;
         End = end;
         CementType = cementType;
         UpdatedOn = updatedOn;
+        NumberOfTimesUpdated = 0;
     }
     public int ScheduleItemId { get; set; }
     public DateTime Start { get; set; }
@@ -31,6 +32,6 @@ public class ScheduleItem
         End = end;
         CementType = cementType;
         UpdatedOn = now;
-        NumberOfTimesUpdated++;
+        NumberOfTimesUpdated = NumberOfTimesUpdated + 1;
     }
 }

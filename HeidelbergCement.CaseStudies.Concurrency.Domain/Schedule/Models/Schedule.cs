@@ -29,9 +29,15 @@ public class Schedule
 
     public void UpdateItem(int itemId, DateTime start, DateTime end, string cementType, DateTime now)
     {
-        ScheduleItems
-            .Single(it => it.ScheduleItemId == itemId)
-            .Update(start, end, cementType, now);
+        ScheduleItems = ScheduleItems
+            .Select(it =>
+            {
+                if (it.ScheduleItemId == itemId)
+                {
+                    it.Update(start, end, cementType, now);
+                }
+                return it;
+            }).ToList();
         UpdatedOn = now;
     }
 }

@@ -56,6 +56,9 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("NumberOfTimesUpdated")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ScheduleId")
                         .HasColumnType("integer");
 

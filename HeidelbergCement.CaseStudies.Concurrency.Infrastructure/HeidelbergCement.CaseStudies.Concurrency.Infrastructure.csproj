@@ -12,11 +12,16 @@
     <ItemGroup>
       <ProjectReference Include="..\HeidelbergCement.CaseStudies.Concurrency.Domain\HeidelbergCement.CaseStudies.Concurrency.Domain.csproj" />
     </ItemGroup>
-        <ItemGroup>
-            <Compile Include="Migrations\20211203152409_InitialMigration.cs" />
-            <Compile Include="Migrations\20211203152409_InitialMigration.Designer.cs" />
-            <Compile Include="Migrations\ScheduleDbContextModelSnapshot.cs" />
-        </ItemGroup>
+                <ItemGroup>
+                    <Compile Include="Migrations\20211206091343_InitialMigration.cs" />
+                    <Compile Include="Migrations\20211206091343_InitialMigration.Designer.cs" />
+                    <Compile Include="Migrations\ScheduleDbContextModelSnapshot.cs" />
+                </ItemGroup>
+    <!--            <ItemGroup>-->
+<!--                <Compile Include="Migrations\20211206074622_InitialMigration.cs" />-->
+<!--                <Compile Include="Migrations\20211206074622_InitialMigration.Designer.cs" />-->
+<!--                <Compile Include="Migrations\ScheduleDbContextModelSnapshot.cs" />-->
+<!--            </ItemGroup>-->
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">

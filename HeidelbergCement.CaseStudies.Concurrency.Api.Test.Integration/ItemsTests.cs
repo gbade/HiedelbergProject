@@ -23,7 +23,7 @@ public class ItemsTests: IntegrationTestBase
     {
         //Setup
         var fixture = new Fixture();
-        var plantCode = fixture.Create<string>();
+        var plantCode = fixture.Create<int>().ToString();
         var itemToAdd = new ScheduleInputItemDto
         {
             Start = DateTime.UtcNow,
@@ -59,6 +59,7 @@ public class ItemsTests: IntegrationTestBase
 
         // Verify
         scheduleBeforeAddition.ScheduleItems.Count.Should().Be(0);
+        //TEST FAILS HERE - only one of the items should be added and the second should cause a conflict
         scheduleAfterAddition.ScheduleItems.Count.Should().Be(1);
         
         var failures = itemAddResponses.ToList().Where(it => it.IsSuccessStatusCode == false);
@@ -73,7 +74,7 @@ public class ItemsTests: IntegrationTestBase
     {
         //Setup
         var fixture = new Fixture();
-        var plantCode = fixture.Create<string>();
+        var plantCode = fixture.Create<int>().ToString();
         var itemDto = new ScheduleInputItemDto
         {
             Start = DateTime.UtcNow,
@@ -117,6 +118,8 @@ public class ItemsTests: IntegrationTestBase
         var failures = itemChangeResponses.ToList().Where(it => it.IsSuccessStatusCode == false);
         var successes = itemChangeResponses.ToList().Where(it => it.IsSuccessStatusCode == true);
 
+        //TEST FAILS HERE, as one of the calls should fail
         failures.Count().Should().Be(1);
-        successes.Count().Should().Be(1);    }
+        successes.Count().Should().Be(1);    
+    }
 }

@@ -34,6 +34,7 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Migrations
                     End = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CementType = table.Column<string>(type: "text", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    NumberOfTimesUpdated = table.Column<int>(type: "integer", nullable: false),
                     ScheduleId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

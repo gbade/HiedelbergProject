@@ -16,8 +16,8 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         _scheduleRepository = scheduleRepository;
     }
     
-    public async Task<ScheduleResponseDto> GetScheduleForPlant(int plantCode)
-    {
+    public async Task<ScheduleResponseDto> GetLatestScheduleForPlant(int plantCode)
+    { 
         var currentDraftSchedule = await _scheduleRepository.GetLastUpdatedScheduleForPlant(plantCode);
         if (currentDraftSchedule == null)
         {
@@ -52,7 +52,7 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
                     end: scheduleInputScheduleItem.End,
                     cementType: scheduleInputScheduleItem.CementType,
                     now: now);
-            }
+            } 
         }
 
         await _scheduleRepository.Insert(schedule);

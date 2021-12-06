@@ -18,7 +18,7 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
         }
    
         public IQueryable<TEntity> All() {
-            return _dbSet.AsNoTracking();
+            return _dbSet.AsTracking();
         }
         
 
@@ -31,14 +31,14 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
 
         public IQueryable<TEntity> GetAllIncluding
             (params Expression<Func<TEntity, object>>[] includeProperties) {
-            var queryable = _dbSet.AsNoTracking();
+            var queryable = _dbSet.AsTracking();
 
             return includeProperties.Aggregate
                 (queryable, (current, includeProperty) => current.Include(includeProperty));
         }
         public IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
         {
-            IQueryable<TEntity> results = _dbSet.AsNoTracking()
+            IQueryable<TEntity> results = _dbSet.AsTracking()
                 .Where(predicate);
             return results;
         }
@@ -63,7 +63,8 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
             return DelaySave();
         }
 
-        public Task<int> Update(TEntity entity) {
+        public Task<int> Update(TEntity entity) 
+        {
             _dbSet.Attach(entity);
             _context.SetModified(entity);
             return DelaySave();
@@ -76,7 +77,8 @@ namespace HeidelbergCement.CaseStudies.Concurrency.Infrastructure.Repositories;
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> Delete(int id) {
+        public async Task<int> Delete(int id) 
+        {
             var entity = await FindByKey(id);
             _dbSet.Remove(entity);
             return await DelaySave();

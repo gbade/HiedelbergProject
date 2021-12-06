@@ -20,10 +20,15 @@ public class ScheduleDbContext: DbContext, IScheduleDbContext
         modelBuilder.Entity<ScheduleItem>().Property(x => x.ScheduleId).ValueGeneratedNever();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.Start).IsRequired();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.End).IsRequired();
-        modelBuilder.Entity<ScheduleItem>().Property(it => it.NumberOfTimesUpdated).HasDefaultValue(0);
+        modelBuilder.Entity<ScheduleItem>().Property(it => it.NumberOfTimesUpdated);
         modelBuilder.Entity<ScheduleItem>().Property(it => it.CementType).IsRequired();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.UpdatedOn).IsRequired();
 
+        modelBuilder.Entity<ScheduleItem>()
+            .HasOne(x => x.Schedule)
+            .WithMany(bl => bl.ScheduleItems)
+            .HasForeignKey(x => x.ScheduleId);
+        
         modelBuilder.Entity<Domain.Schedule.Models.Schedule>().HasKey(it => it.ScheduleId);
         modelBuilder.Entity<Domain.Schedule.Models.Schedule>().Property(it => it.PlantCode).IsRequired();
         modelBuilder.Entity<Domain.Schedule.Models.Schedule>().Property(it => it.UpdatedOn).IsRequired();

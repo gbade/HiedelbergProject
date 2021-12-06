@@ -22,7 +22,7 @@ public class ScheduleController: ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<ScheduleResponseDto>> GetDraftSchedule(int plantCode)
     {
-        var schedule = await _scheduleService.GetScheduleForPlant(plantCode);
+        var schedule = await _scheduleService.GetLatestScheduleForPlant(plantCode);
         return Ok(schedule);
     }
     
