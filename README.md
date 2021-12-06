@@ -5,14 +5,13 @@ We want to make the best use of your and our time and give you a sense of the ki
 
 The following case study describes an interaction of a simple service and its corresponding business requirements. It is your task to understand the requirements, how they are not currently being met, and to create a fix to the issue.
 
-We would like to see your approach to the code base, your knowledge of microservices, concurrency issues, domain driven design.  Later on we would like you to present your solution to help us get a better sense of your skills and the way you solve problems.
+We would like to see your approach to the code base, your knowledge of microservices, concurrency issues, domain driven design. Later on we would like you to present your solution to help us get a better sense of your skills and the way you solve problems.
 
 Please note that this case study is HeidelbergCement IP, consequently you are not allowed to share or post the description, the data or your results publicly!
 
-Please complete the case study and send it as an attachment (no download link)
-to Sebastian.Walter@heidelbergcement.com. 
+Please complete the case study and publish it one github, bitbucket, gitlab, etc. and send us the link to the repo.
 
-If you have any questions, do not hesitate to reach out!
+If you have any questions, please send an email to buzurgmehr.arjmandi@heidelbergcement.com (put sebastian.walter@heidelbergcement.com in the cc).
 
 # The Case Study
 
@@ -71,13 +70,12 @@ Currently if you add an item then the service validates that the item does not c
 
 
 ## Deliverables
-There are two integration tests that have been created in the `HeidelbergCement.CaseStudies.Concurrency.Api.Test.Integration/ItemsTests.cs` project/folder.  These tests demonstrate actual scenarios where the concurrency issues are present.
+There are two integration tests that have been created in the `HeidelbergCement.CaseStudies.Concurrency.Api.Test.Integration/ItemsTests.cs` project/folder.
+These tests demonstrate actual scenarios where the concurrency issues are present.
 
-The project should be modified so that the tests successfully pass (i.e. no more concurrency issues) and the business requirements are still fulfilled.
-
-1. A zip file containing your modified project
-2. Your analysis of the problem, its causes, possible solutions, and why you selected your currently implemented solution.
-3. Your analysis of DDD and its merits and possible drawbacks in the current solution.
+1. In the file `ANALYSIS.md`, put your analysis of the problem, its causes, possible solutions and your selected solution strategy.
+2. The project should be modified so that the tests successfully pass (i.e. no more concurrency issues) and the business requirements are still fulfilled.
+3. In the file `DDD.md`, put a short summary of DDD, its merits and possible drawbacks in the current solution.
 
 # Project Setup Basics
 Your purpose is to get all of the tests working.
