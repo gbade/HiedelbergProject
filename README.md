@@ -12,12 +12,9 @@ We would like to see your approach to the code base, your knowledge of microserv
 design. Later on we would like you to present your solution to help us get a better sense of your skills and the way you
 solve problems.
 
-Please complete the case study and publish it one github, bitbucket, gitlab, etc. and send us the link to the repo.
-
-> **IMPORTANT**: Please make an initial commit of the project to make your adaptions visible.
-
-If you have any questions or run into problems, please send an email to buzurgmehr.arjmandi@heidelbergcement.com (cc
-sebastian.walter@heidelbergcement.com).
+> **IMPORTANT**: 
+> 1. Please make your changes and commit them.
+> 2. Create a [git bundle](https://git-scm.com/docs/git-bundle) and send it to us in a zip file.
 
 # The Case Study
 
