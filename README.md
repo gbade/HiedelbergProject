@@ -24,10 +24,14 @@ We have machines that run at cement plants that produce different kinds of cemen
 at different times based on a variety of factors, including how much cement is required and what the energy costs for
 the time are.
 
-A **schedule** is defined as a collection of scheduled machine run times for a plant. Schedule items can never overlap.
-If there are overlapping schedule items then the entire schedule is invalid.
+A **schedule** is defined as a collection of scheduled machine run times for a plant.
 
-Here is an example schedule in the form of a gantt chart where the machine run times are organized by the asset they
+> **Important**!
+> Schedule items can never overlap.
+> 
+> If there are overlapping schedule items then the entire schedule is invalid.
+
+Here is an example of a schedule in the form of a gantt chart where the machine run times are organized by the asset they
 create. Imagine every `:` is a 15 minute interval
 
 ```
@@ -70,6 +74,7 @@ In json format this would look like the following:
 ## The Problem
 
 This project is a .NET 6 microservice that manages the schedules for the different plants.
+It runs on an auto-scaling k8s cluster.
 
 It has the following end points
 
@@ -80,6 +85,8 @@ It has the following end points
 Currently if you add an item then the service validates that the item does not conflict. Unfortunately if you make two
 requests to add an item in quick succession we have a concurrency issue where both items are saved to the database,
 immediately making the entire schedule invalid.
+
+
 
 ## Deliverables
 
