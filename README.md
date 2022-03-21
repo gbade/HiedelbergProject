@@ -32,10 +32,15 @@ A **schedule** is defined as a collection of scheduled machine run times for a p
 > If there are overlapping schedule items then the entire schedule is invalid.
 
 Here is an example of a schedule in the form of a gantt chart where the machine run times are organized by the asset they
-create. Imagine every `:` is a 15 minute interval
+create. Imagine every character is a 15 minute interval
 
 ```
-[::CEM-I:::]  [::::::::::::::CEM-II::::::::::::::::][:CEM-III:]
+11111---22222222222222222222222222222233
+
+1: CEM-I
+2: CEM-II
+3: CEM-III
+-: no production
 ```
 
 In json format this would look like the following:
