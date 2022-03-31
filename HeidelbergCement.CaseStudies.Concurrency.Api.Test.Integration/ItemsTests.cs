@@ -103,7 +103,7 @@ public class ItemsTests: IntegrationTestBase
         var itemChangeRequest = changeItemForScheduleRequest(scheduleId, existingItemId.ToString());
 
         // Send two simultaneous item change requests
-        var itemChangeResponses = await Task.WhenAll(itemChangeRequest.Put(itemDto), itemChangeRequest.Put(itemDto));
+        var itemChangeResponses = await Task.WhenAll(itemChangeRequest.Put(itemDto, false), itemChangeRequest.Put(itemDto, false));
         
         //Get the schedule after item change requests, should have only one item and the item should have an update counter of only 1
         var scheduleAfterChanges = await latestScheduleRequest.Get<ScheduleResponseDto>();
