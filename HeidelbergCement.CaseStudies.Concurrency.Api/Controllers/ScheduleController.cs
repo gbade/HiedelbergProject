@@ -42,7 +42,11 @@ public class ScheduleController: ControllerBase
     public async Task<ActionResult<ScheduleItemResponseDto>> PostScheduleItem(int scheduleId, ScheduleInputItemDto scheduleInputItem)
     {
         var scheduleItem = await _scheduleService.AddItemToSchedule(scheduleId, scheduleInputItem);
-        return Ok(scheduleItem);
+
+        if (!string.IsNullOrEmpty(scheduleItem.ErrorMessage))
+            return StatusCode(500, scheduleItem.ErrorMessage);
+
+        return Ok(scheduleItem.Response);
     }
     
     [HttpPut("items/{itemId}")]
@@ -51,6 +55,10 @@ public class ScheduleController: ControllerBase
     public async Task<ActionResult<ScheduleItemResponseDto>> PutScheduleItem(int scheduleId, int itemId, ScheduleInputItemDto scheduleInputItem)
     {
         var scheduleItem = await _scheduleService.ChangeScheduleItem(scheduleId, itemId, scheduleInputItem);
-        return Ok(scheduleItem);
+
+        if (!string.IsNullOrEmpty(scheduleItem.ErrorMessage))
+            return StatusCode(500, scheduleItem.ErrorMessage);
+
+        return Ok(scheduleItem.Response);
     }
 }

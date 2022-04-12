@@ -27,16 +27,28 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         return currentDraftSchedule.MapToScheduleDto();
     }
 
-    public async Task<ScheduleResponseDto> AddItemToSchedule(int scheduleId, ScheduleInputItemDto scheduleItem)
+    public async Task<(ScheduleResponseDto? Response, string ErrorMessage)> AddItemToSchedule(
+        int scheduleId, ScheduleInputItemDto scheduleItem)
     {
-        var scheduleWithId = await _scheduleRepository.GetScheduleById(scheduleId);
-        scheduleWithId.AddItem(
-            start: scheduleItem.Start,
-            end: scheduleItem.End,
-            cementType: scheduleItem.CementType,
-            now: DateTime.UtcNow);
-        await _scheduleRepository.Update(scheduleWithId);
-        return scheduleWithId.MapToScheduleDto();
+        try
+        {
+            var scheduleWithId = await _scheduleRepository.GetScheduleById(scheduleId);
+
+            scheduleWithId.AddItem(
+                start: scheduleItem.Start,
+                end: scheduleItem.End,
+                cementType: scheduleItem.CementType,
+                now: DateTime.UtcNow
+            );
+
+            await _scheduleRepository.Update(scheduleWithId);
+
+            return (scheduleWithId.MapToScheduleDto(), string.Empty);
+        }
+        catch (Exception ex)
+        {
+            return (null, ex.Message);
+        }
     }
 
     public async Task<ScheduleResponseDto> AddNewSchedule(int plantCode, List<ScheduleInputItemDto> scheduleInputItems)
@@ -59,12 +71,23 @@ public class SchedulesService: ServiceBase<IScheduleDbContext>, IScheduleService
         return schedule.MapToScheduleDto();
     }
 
-    public async Task<ScheduleResponseDto> ChangeScheduleItem(int scheduleId, int itemId, ScheduleInputItemDto scheduleInputItem)
+    public async Task<(ScheduleResponseDto? Response, string ErrorMessage)> ChangeScheduleItem(
+        int scheduleId, int itemId, ScheduleInputItemDto scheduleInputItem)
     {
-        var now = DateTime.UtcNow;
-        var schedule = await _scheduleRepository.GetScheduleById(scheduleId);
-        schedule.UpdateItem(itemId, scheduleInputItem.Start, scheduleInputItem.End, scheduleInputItem.CementType, now);
-        await _scheduleRepository.Update(schedule);
-        return schedule.MapToScheduleDto();
+        try
+        {
+            var now = DateTime.UtcNow;
+
+            var schedule = await _scheduleRepository.GetScheduleById(scheduleId);
+            schedule.UpdateItem(itemId, scheduleInputItem.Start, scheduleInputItem.End, scheduleInputItem.CementType, now);
+
+            await _scheduleRepository.Update(schedule);
+
+            return (schedule.MapToScheduleDto(), string.Empty);
+        }
+        catch (Exception ex)
+        {
+            return (null, ex.Message);
+        }
     }
 }

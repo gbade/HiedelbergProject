@@ -20,9 +20,17 @@ public class ScheduleDbContext: DbContext, IScheduleDbContext
         modelBuilder.Entity<ScheduleItem>().Property(x => x.ScheduleId).ValueGeneratedNever();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.Start).IsRequired();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.End).IsRequired();
-        modelBuilder.Entity<ScheduleItem>().Property(it => it.NumberOfTimesUpdated);
+        modelBuilder.Entity<ScheduleItem>().Property(it => it.NumberOfTimesUpdated).IsConcurrencyToken();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.CementType).IsRequired();
         modelBuilder.Entity<ScheduleItem>().Property(it => it.UpdatedOn).IsRequired();
+
+        modelBuilder.Entity<ScheduleItem>().HasIndex(it => new
+        {
+            it.ScheduleId,
+            it.CementType,
+            it.Start,
+            it.End
+        }).IsUnique();
 
         modelBuilder.Entity<ScheduleItem>()
             .HasOne(x => x.Schedule)
